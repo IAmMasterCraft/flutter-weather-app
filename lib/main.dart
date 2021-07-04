@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 stops: [0.2, 0.5, 0.8],
-                colors: [Colors.green, Colors.white, Colors.green]
+                colors: [Colors.greenAccent, Colors.white54, Colors.greenAccent]
               )
             ),
             child: Column(
@@ -76,7 +76,7 @@ class _HomeState extends State<Home> {
                   child: Text(
                     location != null ? "Currently in " + location.toString() : "Loading. . .",
                     style: TextStyle(
-                        color: Colors.green,
+                        color: Colors.white,
                         fontSize: 14.0,
                         fontWeight: FontWeight.w600),
                   ),
@@ -84,7 +84,7 @@ class _HomeState extends State<Home> {
                 Text(
                   temp != null ? temp.toString() + "\u00B0C" : "Loading. . .",
                   style: TextStyle(
-                      color: Colors.green,
+                      color: Colors.white,
                       fontSize: 40.0,
                       fontWeight: FontWeight.w600),
                 ),
@@ -93,7 +93,11 @@ class _HomeState extends State<Home> {
                   child: Text(
                     currently != null ? currently.toString() : "Loading. . .",
                     style: TextStyle(
-                        color: Colors.green,
+                        color: Colors.white,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 6
+                          ..color = Colors.green,
                         fontSize: 14.0,
                         fontWeight: FontWeight.w600),
                   ),
