@@ -21,6 +21,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  var location;
   var temp;
   var description;
   var currently;
@@ -29,10 +30,12 @@ class _HomeState extends State<Home> {
 
   Future getWeather() async {
     var uri = Uri.parse(
-        "https://api.openweathermap.org/data/2.5/weather?q=Nigeria&appid=3445b73c7626d8f917c7a2ad9d3fdede");
+      "https://api.openweathermap.org/data/2.5/weather?q=Nigeria&units=metric&appid=3445b73c7626d8f917c7a2ad9d3fdede"
+    );
     http.Response response = await http.get(uri);
     var results = jsonDecode(response.body);
     setState(() {
+      this.location = results["name"];
       this.temp = results["main"]["temp"];
       this.description = results["weather"][0]["description"];
       this.currently = results["weather"][0]["main"];
@@ -55,7 +58,15 @@ class _HomeState extends State<Home> {
           Container(
             height: MediaQuery.of(context).size.height / 3,
             width: MediaQuery.of(context).size.width,
-            color: Colors.red,
+            // color: Colors.red,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: [0.3, 0.3, 0.3],
+                colors: [Colors.green, Colors.white, Colors.green]
+              )
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,7 +74,7 @@ class _HomeState extends State<Home> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: Text(
-                    "Currently in Nigeria",
+                    location != null ? "Currently in " + location.toString() : "Loading. . .",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 14.0,
@@ -71,7 +82,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 Text(
-                  "52\u00B0",
+                  temp != null ? temp.toString() + "\u00B0C" : "Loading. . .",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 40.0,
@@ -80,7 +91,7 @@ class _HomeState extends State<Home> {
                 Padding(
                   padding: EdgeInsets.only(top: 10.0),
                   child: Text(
-                    "Rain",
+                    currently != null ? currently.toString() : "Loading. . .",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 14.0,
@@ -98,22 +109,30 @@ class _HomeState extends State<Home> {
                   ListTile(
                     leading: FaIcon(FontAwesomeIcons.thermometerHalf),
                     title: Text("Temperature"),
-                    trailing: Text("52\u00B0"),
+                    trailing: Text(temp != null
+                        ? temp.toString() + "\u00B0C"
+                        : "Loading. . ."),
                   ),
                   ListTile(
                     leading: FaIcon(FontAwesomeIcons.cloud),
                     title: Text("Weather"),
-                    trailing: Text("Weather"),
+                    trailing: Text(description != null
+                        ? description.toString()
+                        : "Loading. . ."),
                   ),
                   ListTile(
                     leading: FaIcon(FontAwesomeIcons.sun),
-                    title: Text("Temperature Humidity"),
-                    trailing: Text("12"),
+                    title: Text("Humidity"),
+                    trailing: Text(humidity != null
+                        ? humidity.toString()
+                        : "Loading. . ."),
                   ),
                   ListTile(
                     leading: FaIcon(FontAwesomeIcons.thermometerHalf),
                     title: Text("Wind Speed"),
-                    trailing: Text("52\u00B0"),
+                    trailing: Text(windSpeed != null
+                        ? windSpeed.toString()
+                        : "Loading. . ."),
                   ),
                 ],
               ),
