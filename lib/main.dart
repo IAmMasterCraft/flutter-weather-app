@@ -63,7 +63,7 @@ class _HomeState extends State<Home> {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                stops: [0.3, 0.3, 0.3],
+                stops: [0.2, 0.5, 0.8],
                 colors: [Colors.green, Colors.white, Colors.green]
               )
             ),
@@ -76,7 +76,7 @@ class _HomeState extends State<Home> {
                   child: Text(
                     location != null ? "Currently in " + location.toString() : "Loading. . .",
                     style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.green,
                         fontSize: 14.0,
                         fontWeight: FontWeight.w600),
                   ),
@@ -84,7 +84,7 @@ class _HomeState extends State<Home> {
                 Text(
                   temp != null ? temp.toString() + "\u00B0C" : "Loading. . .",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.green,
                       fontSize: 40.0,
                       fontWeight: FontWeight.w600),
                 ),
@@ -93,7 +93,7 @@ class _HomeState extends State<Home> {
                   child: Text(
                     currently != null ? currently.toString() : "Loading. . .",
                     style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.green,
                         fontSize: 14.0,
                         fontWeight: FontWeight.w600),
                   ),
